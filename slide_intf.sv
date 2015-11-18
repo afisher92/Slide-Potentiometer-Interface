@@ -6,7 +6,7 @@ output reg [2:0]chnnl;
 output reg strt_cnv;
 output reg [11:0]POT_LP, POT_B1, POT_B2, POT_B3, POT_HP, VOLUME;
 
-reg [2:0]cnt, nxtchnnl;
+reg [2:0]cnt;
 reg state, nxtstate;
 
 localparam IDLE = 1'b0;
@@ -26,10 +26,17 @@ always_ff @(posedge clk, negedge rst_n)
 always_ff @(posedge clk, negedge rst_n)
  if(!rst_n)
   cnt <= 3'b000;
- else if(&cnt)
+ else if(cnt == 111)
   cnt <= 3'b000;			//resets cnt when cnt = 111
  else
-  cnt <= nxtchnnl;			//nxtcnt assigned in state machine for next chnnl
+  cnt <= cnt;			//nxtcnt assigned in state machine for next chnnl
+
+//Implement chnnl
+always_ff @(posedge clk, negedge clk)
+ if(!rst_n)
+  chnnl <= 3'b000;
+ else
+  chnnl <= cnt;
 
 //Potentiometer outputs
 always @(posedge clk) begin
@@ -42,26 +49,27 @@ always @(posedge clk) begin
   111:   VOLUME <= res;
  endcase
 end
+
 //Implement state machine
 always @(*) begin
-nxtchnnl = 1'b0;
 chnnl = 3'b000;
 nxtstate = IDLE;
 case(state)
  IDLE:  begin
 	strt_cnv = 1'b1;
-	chnnl = cnt;
 	nxtstate = CNV;
 	end
 
  CNV:   if(!cnv_cmplt) begin
 	nxtstate = CNV;
+	strt_cnv = 1'b0;
 	end else begin
+	strt_cnv = 1'b0;
 	nxtstate = IDLE;
 	 if(cnt == 3'b101)
-	 nxtchnnl = 3'b111;
+	  cnt = 3'b111;
 	 else
-	 nxtchnnl = nxtchnnl + 1;
+	  cnt = cnt + 1;
 	end
 endcase
 end
