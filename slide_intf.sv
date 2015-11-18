@@ -41,7 +41,7 @@ always_ff @(posedge clk, negedge clk)
 //Potentiometer outputs
 always @(posedge clk) begin
  case(cnt)
-  000:   POT_LP <= res;
+  000:   POT_LP <= res;   //change these to flip flops to keep constant values when not enabled
   001:   POT_B1 <= res;
   010:   POT_B2 <= res;
   011:   POT_B3 <= res;
