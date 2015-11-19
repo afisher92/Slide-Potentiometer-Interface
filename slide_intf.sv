@@ -26,7 +26,7 @@ always_ff @(posedge clk, negedge rst_n)
 always_ff @(posedge clk, negedge rst_n)
  if(!rst_n)
   cnt <= 3'b000;
- else if(cnt == 111)
+ else if(cnt == 3'b111)
   cnt <= 3'b000;  //resets cnt when cnt = 111
  else
   cnt <= cnt; //nxtcnt assigned in state machine for next chnnl
@@ -40,42 +40,42 @@ always_ff @(posedge clk, negedge clk)
 
 //Potentiometer outputs
 always @(posedge clk) begin
- if(cnt==000)
+ if(cnt==3'b000)
   POT_LP <= res;
  else
   POT_LP <= POT_LP;
 end
 
 always @(posedge clk) begin
- if(cnt==001)
+ if(cnt==3'b001)
   POT_B1 <= res;
  else
   POT_B1 <= POT_B1;
 end
 
 always @(posedge clk) begin
- if(cnt==010)
+ if(cnt==3'b010)
   POT_B2 <= res;
  else
   POT_B2 <= POT_B2;
 end
 
 always @(posedge clk) begin
- if(cnt==011)
+ if(cnt==3'b011)
   POT_B3 <= res;
  else
   POT_B3 <= POT_B3;
 end
 
 always @(posedge clk) begin
- if(cnt==100)
+ if(cnt==3'b100)
   POT_HP <= res;
  else
   POT_HP <= POT_HP;
 end
 
 always @(posedge clk) begin
- if(cnt==111)
+ if(cnt==3'b111)
   VOLUME <= res;
  else
   VOLUME <= VOLUME;
