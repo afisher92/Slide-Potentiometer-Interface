@@ -40,14 +40,14 @@ always_ff @(posedge clk, negedge clk)
 
 //Potentiometer outputs
 always @(posedge clk) begin
- if(cnt=000)
+ if(cnt==000)
   POT_LP <= res;
  else
   POT_LP <= POT_LP;
 end
 
 always @(posedge clk) begin
- if(cnt=001)
+ if(cnt==001)
   POT_B1 <= res;
  else
   POT_B1 <= POT_B1;
@@ -61,21 +61,21 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
- if(cnt=011)
+ if(cnt==011)
   POT_B3 <= res;
  else
   POT_B3 <= POT_B3;
 end
 
 always @(posedge clk) begin
- if(cnt=100)
+ if(cnt==100)
   POT_HP <= res;
  else
   POT_HP <= POT_HP;
 end
 
 always @(posedge clk) begin
- if(cnt=111)
+ if(cnt==111)
   VOLUME <= res;
  else
   VOLUME <= VOLUME;
