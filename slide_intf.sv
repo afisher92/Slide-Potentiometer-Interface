@@ -54,7 +54,7 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
- if(cnt=010)
+ if(cnt==010)
   POT_B2 <= res;
  else
   POT_B2 <= POT_B2;
